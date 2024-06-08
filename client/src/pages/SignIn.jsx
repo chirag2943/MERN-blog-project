@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import { signInStart, signInSuccess, signInFailure } from '../redux/user/userSlice';
+import OAuth from '../components/OAuth';
 
 export default function SignIn() {
   const [formData, setFormData] = useState({});
@@ -73,13 +74,14 @@ export default function SignIn() {
                 <Spinner size='sm' />
                 <span className='pl-3'>Loading...</span>
                 </>
-               ) : 'sign up'
+               ) : 'sign in'
               }
             </Button>
+            <OAuth />
           </form>
           <div className="flex gap-2 text-sm mt-4">
             <span>Dont't have an Account?</span>
-            <Link to='sign-up'className='text-blue-500'>
+            <Link to='/sign-up'className='text-blue-500'>
               sign up
             </Link>
           </div>
