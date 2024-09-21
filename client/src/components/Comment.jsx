@@ -1,5 +1,5 @@
+import React, { useState, useEffect } from "react";
 import moment from "moment";
-import { useEffect, useState } from "react";
 import { FaThumbsUp } from "react-icons/fa";
 import { useSelector } from "react-redux";
 
@@ -9,6 +9,7 @@ export default function Comment({ comment, onLike }) {
 
   const [user, setUser] = useState({});
   const { currentUser } = useSelector((state) => state.user);
+  const [isLiked, setIsLiked] = useState(false);
 
   useEffect(() => {
     const getUser = async () => {
@@ -23,7 +24,22 @@ export default function Comment({ comment, onLike }) {
       }
     };
     getUser();
-  }, [comment]);
+
+    // Check if the current user has liked the comment
+    setIsLiked(comment.likes.includes(currentUser._id));
+  }, [comment, currentUser]);
+
+  useEffect(() => {
+    // Re-render the component when the state changes
+    console.log("render");
+  }, [comment.numberOfLikes]);
+
+  const handleLike = () => {
+    console.log(comment.numberOfLikes);
+
+    onLike(comment._id);
+    setIsLiked(!isLiked); // Update isLiked state immediately
+  };
 
   return (
     <div className="flex p-4 border-b dark:border-gray-600 text-sm">
@@ -46,9 +62,9 @@ export default function Comment({ comment, onLike }) {
         <p className="text-gray-500 mb-2 cursor-default">{comment.content}</p>
         <div className="flex items-center pt-2 text-xs border-t dark:border-gray-700 max-w-fit gap-2">
           <button
-            className={`text-gray-400 hover:text-blue-500 ${currentUser && comment.likes.includes(currentUser._id) && "!text-blue-500"}`}
+            className={`text-gray-400 hover:text-blue-500 ${isLiked && "!text-blue-500"}`}
             type="button"
-            onClick={() => onLike(comment._id)}
+            onClick={handleLike}
           >
             <FaThumbsUp className="text-sm" />
           </button>

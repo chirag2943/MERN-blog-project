@@ -61,11 +61,14 @@ export default function CommentSection({ postId }) {
         navigate("/sign-in");
         return;
       }
+
       const res = await fetch(`/api/comment/likeComment/${commentId}`, {
         method: "PUT",
       });
       if (res.ok) {
         const data = await res.json();
+        console.log(data);
+
         setComments(
           comments.map((comment) =>
             comments._id === commentId
