@@ -4,7 +4,7 @@ import { FaThumbsUp } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { Button, Textarea } from "flowbite-react";
 
-export default function Comment({ comment, onLike, onEdit }) {
+export default function Comment({ comment, onLike, onEdit, onDelete }) {
   // Get user data using the userId from the comment object
   // Display the user's name and avatar in the comment section
 
@@ -134,13 +134,22 @@ export default function Comment({ comment, onLike, onEdit }) {
               </p>
               {currentUser &&
                 (currentUser._id === comment.userId || currentUser.isAdmin) && (
-                  <button
-                    className="text-gray-400 hover:text-blue-500"
-                    type="button"
-                    onClick={handleEdit}
-                  >
-                    Edit
-                  </button>
+                  <>
+                    <button
+                      className="text-gray-400 hover:text-blue-500"
+                      type="button"
+                      onClick={handleEdit}
+                    >
+                      Edit
+                    </button>
+                    <button
+                      className="text-gray-400 hover:text-red-500"
+                      type="button"
+                      onClick={() => onDelete(comment._id)}
+                    >
+                      Delete
+                    </button>
+                  </>
                 )}
             </div>
           </>
