@@ -17,12 +17,11 @@ export const addProject = async (req, res, next) => {
       .replace(/[^a-zA-Z0-9-]/g, "");
 
     const newProject = new Project({
-      title,
-      desc,
-      image,
-      projectLink,
+      ...req.body,
       slug,
+      projectId: req.Project._id,
     });
+
     await newProject.save();
     res.status(200).json(newProject);
   } catch (error) {
@@ -30,13 +29,13 @@ export const addProject = async (req, res, next) => {
   }
 };
 
-export const getProject = async (req, res, next) => {
+export const getProjects = async (req, res, next) => {
   try {
-    const project = await Project.find();
-    if (!project) {
+    const projects = await Project.find();
+    if (!projects) {
       return next(errorHandler(404, "project not found"));
     }
-    res.status(200).json(project);
+    res.status(200).json(projects);
   } catch (error) {
     next(error);
   }

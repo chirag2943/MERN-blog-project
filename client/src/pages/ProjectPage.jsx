@@ -11,7 +11,12 @@ export default function ProjectPage() {
         const res = await fetch(`/api/project/getprojects?slug=${projectSlug}`);
         const data = await res.json();
         if (res.ok) {
-          setProject(data[0]);
+          //this is for showing individual projects
+          setProject(data.filter((project) => project.slug === projectSlug)[0]);
+
+          // console.log(
+          //   data.filter((project) => project.slug === projectSlug)[0]
+          // );
         }
       } catch (error) {
         console.log(error.message);

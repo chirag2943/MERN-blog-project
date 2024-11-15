@@ -22,6 +22,7 @@ export default function PostPage() {
           setLoading(false);
           return;
         }
+        console.log(data);
         if (res.ok) {
           setPost(data.posts[0]);
           setLoading(false);
