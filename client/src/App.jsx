@@ -15,6 +15,7 @@ import PostPage from "./pages/PostPage";
 import ScrollToTop from "./components/ScrollToTop";
 import Search from "./pages/Search";
 import ProjectPage from "./pages/ProjectPage";
+import AddProject from "./pages/CreateProject";
 
 export function App() {
   return (
@@ -32,6 +33,7 @@ export function App() {
         </Route>
         <Route element={<OnlyAdminPrivateRoute />}>
           <Route path="/create-post" element={<CreatePost />} />
+          <Route path="/addproject" element={<AddProject />} />
           <Route path="/update-post/:postId" element={<UpdatePost />} />
         </Route>
         <Route path="/sign-in" element={<SignIn />} />

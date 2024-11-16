@@ -19,7 +19,6 @@ export const addProject = async (req, res, next) => {
     const newProject = new Project({
       ...req.body,
       slug,
-      projectId: req.Project._id,
     });
 
     await newProject.save();
